@@ -112,7 +112,7 @@ export type DateHeaderWrapper<Data> = {
 }
 
 export function DateHeader<Data>({
-  labelFormat,
+  labelFormat = formatLabel,
   unit,
   style,
   className,
@@ -128,7 +128,7 @@ export function DateHeader<Data>({
           <DateHeaderInner
             timelineUnit={timelineState.timelineUnit}
             unit={unit}
-            labelFormat={labelFormat || formatLabel}
+            labelFormat={labelFormat}
             style={style}
             className={className}
             intervalRenderer={intervalRenderer}

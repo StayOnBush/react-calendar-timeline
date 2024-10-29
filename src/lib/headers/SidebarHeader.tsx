@@ -48,8 +48,7 @@ const defaultChildren: SidebarWrapperProps['children'] = ({ getRootProps }: { ge
   <div data-testid="sidebarHeader" {...getRootProps()} />
 )
 
-const SidebarWrapper = (props: SidebarWrapperProps) => {
-  const { children, variant = LEFT_VARIANT, headerData } = props
+const SidebarWrapper = ({ children = defaultChildren, variant = LEFT_VARIANT, headerData }: SidebarWrapperProps) => {
   const { leftSidebarWidth, rightSidebarWidth } = useTimelineHeadersContext()
   return (
     <SidebarHeader
@@ -58,7 +57,7 @@ const SidebarWrapper = (props: SidebarWrapperProps) => {
       variant={variant}
       headerData={headerData}
     >
-      {children || defaultChildren}
+      {children}
     </SidebarHeader>
   )
 }

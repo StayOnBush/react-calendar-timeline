@@ -29,7 +29,7 @@ import {
   selectedStyle,
 } from './styles'
 import { Id, ItemContext, TimelineItemBase, TimelineKeys } from '../types/main'
-import { TimelineContext, TimelineContextType } from '../timeline/TimelineStateContext'
+import { TimelineContext, TimelineContextType, useTimelineState } from '../timeline/TimelineStateContext'
 import isEqual from 'lodash/isEqual'
 
 dayjs.extend(utc)
@@ -163,29 +163,6 @@ export default class Item<CustomItem extends TimelineItemBase<number>> extends C
   }
 
   shouldComponentUpdate(nextProps: ItemProps<CustomItem>, nextState: ItemState) {
-    /*const shouldUpdate =
-      nextState.dragging !== this.state.dragging ||
-      nextState.dragTime !== this.state.dragTime ||
-      nextState.dragGroupDelta !== this.state.dragGroupDelta ||
-      nextState.resizing !== this.state.resizing ||
-      nextState.resizeTime !== this.state.resizeTime ||
-      nextProps.keys !== this.props.keys ||
-      !deepObjectCompare(nextProps.itemProps, this.props.itemProps) ||
-      nextProps.selected !== this.props.selected ||
-      nextProps.item !== this.props.item ||
-      nextProps.canvasTimeStart !== this.props.canvasTimeStart ||
-      nextProps.canvasTimeEnd !== this.props.canvasTimeEnd ||
-      nextProps.canvasWidth !== this.props.canvasWidth ||
-      (nextProps.order ? nextProps.order.index : undefined) !==
-        (this.props.order ? this.props.order.index : undefined) ||
-      nextProps.dragSnap !== this.props.dragSnap ||
-      nextProps.minResizeWidth !== this.props.minResizeWidth ||
-      nextProps.canChangeGroup !== this.props.canChangeGroup ||
-      nextProps.canSelect !== this.props.canSelect ||
-      nextProps.canMove !== this.props.canMove ||
-      nextProps.canResizeLeft !== this.props.canResizeLeft ||
-      nextProps.canResizeRight !== this.props.canResizeRight ||
-      nextProps.dimensions !== this.props.dimensions*/
     return !isEqual(this.props, nextProps) || !isEqual(this.state, nextState)
   }
 
@@ -646,7 +623,7 @@ export default class Item<CustomItem extends TimelineItemBase<number>> extends C
       return null
     }
 
-    const timelineContext = this.context
+    const timelineContext = useTimelineState()
     const itemContext: ItemContext = {
       dimensions: this.props.dimensions!,
       useResizeHandle: !!this.props.useResizeHandle,

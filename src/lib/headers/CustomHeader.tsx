@@ -55,31 +55,8 @@ class CustomHeader<Data> extends React.Component<CustomHeaderProps<Data>, State>
     }
   }
 
-  /*shouldComponentUpdate(nextProps: CustomHeaderProps<Data>) {
-    if (
-      nextProps.canvasTimeStart !== this.props.canvasTimeStart ||
-      nextProps.canvasTimeEnd !== this.props.canvasTimeEnd ||
-      nextProps.canvasWidth !== this.props.canvasWidth ||
-      nextProps.unit !== this.props.unit ||
-      nextProps.timeSteps !== this.props.timeSteps ||
-      nextProps.showPeriod !== this.props.showPeriod ||
-      nextProps.children !== this.props.children ||
-      nextProps.headerData !== this.props.headerData
-    ) {
-      return true
-    }
-    return false
-  }*/
   componentDidUpdate(prevProps: CustomHeaderProps<Data>) {
-    if (
-      !isEqual(prevProps, this.props)
-      //prevProps.canvasTimeStart !== this.props.canvasTimeStart ||
-      //prevProps.canvasTimeEnd !== this.props.canvasTimeEnd ||
-      //prevProps.canvasWidth !== this.props.canvasWidth ||
-      //prevProps.unit !== this.props.unit ||
-      //prevProps.timeSteps !== this.props.timeSteps ||
-      //prevProps.showPeriod !== this.props.showPeriod
-    ) {
+    if (!isEqual(prevProps, this.props)) {
       const { canvasTimeStart, canvasTimeEnd, unit, timeSteps, getLeftOffsetFromDate } = this.props
 
       const intervals = this.getHeaderIntervals({
@@ -145,10 +122,11 @@ class CustomHeader<Data> extends React.Component<CustomHeaderProps<Data>, State>
   getStateAndHelpers = (): CustomDateHeaderProps<Data> => {
     const {
       /*canvasTimeStart,
-      canvasTimeEnd,
-      timelineWidth,
-      visibleTimeStart,
-      visibleTimeEnd,*/
+        canvasTimeEnd,
+        timelineWidth,
+        visibleTimeStart,
+        visibleTimeEnd
+      */
       unit,
       showPeriod,
       headerData,
@@ -185,10 +163,10 @@ export type CustomHeaderWrapperProps<Data> = {
   children: (p: CustomDateHeaderProps<Data>) => ReactNode
   unit?: keyof TimelineTimeSteps
   headerData?: Data
-  height: number
+  height?: number
 }
 
-function CustomHeaderWrapper<Data>({ children, unit, headerData, height }: CustomHeaderWrapperProps<Data>) {
+function CustomHeaderWrapper<Data>({ children, unit, headerData, height = 30 }: CustomHeaderWrapperProps<Data>) {
   const { getTimelineState, showPeriod, getLeftOffsetFromDate } = useTimelineState()
   const timelineState = getTimelineState()
   const { timeSteps } = useTimelineHeadersContext()
@@ -204,10 +182,6 @@ function CustomHeaderWrapper<Data>({ children, unit, headerData, height }: Custo
       height={height}
     />
   )
-}
-
-CustomHeaderWrapper.defaultProps = {
-  height: 30,
 }
 
 export default CustomHeaderWrapper

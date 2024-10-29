@@ -88,7 +88,7 @@ class Columns extends Component<ColumnsProps> {
   }
 }
 
-const ColumnsWrapper: FC<WrapperColumnsProps> = ({ ...props }) => {
+const ColumnsWrapper: FC<WrapperColumnsProps> = (props) => {
   return (
     <TimelineStateConsumer>
       {({ getLeftOffsetFromDate }) => <Columns getLeftOffsetFromDate={getLeftOffsetFromDate} {...props} />}
